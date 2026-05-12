@@ -19,3 +19,6 @@ openpyxl==3.1.2
 # HTTP
 requests==2.31.0
 httpx==0.25.2
+
+# Server
+pyngrok==8.1.2
