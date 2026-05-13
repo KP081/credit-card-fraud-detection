@@ -497,9 +497,9 @@ elif page == "Batch Analysis":
             Time, V1, V2, V3, ..., V28, Amount, Time_Hour
             ```
             **Rules:**
-            - Amount: 0 se zyada hona chahiye
-            - Time: 0.0 to 172792.0 ke beech
-            - Time_Hour: 0.0 to 48.0 ke beech
+            - Amount: must greter than 0
+            - Time: between 0.0 to 172792.0
+            - Time_Hour: between 0.0 to 48.0
             - Max 100 transactions per batch
             - CSV format (comma separated)
             """
