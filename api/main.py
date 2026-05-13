@@ -44,6 +44,8 @@ BASE_DIR     = pathlib.Path(__file__).parent.parent
 PIPELINE_DIR = str(BASE_DIR / "pipeline")
 SERVER_START_TIME = datetime.now()
 
+HF_REPO_ID   = os.getenv("HF_REPO_ID", "KP022/fraud-detection-model")
+
 
 ###########################################################
 #   |   |   |   |   Pipeline Class
@@ -179,6 +181,34 @@ class FraudDetectionPipeline:
 ###########################################################
 #   |   |   |   |   Load Pipeline at startup
 ###########################################################
+
+def download_pipeline_if_needed():
+  
+  from huggingface_hub import hf_hub_download
+  
+  os.makedirs(PIPELINE_DIR, exist_ok=True)
+  
+  files_to_download = ["model.joblib", "scaler.joblib", "config.json"]
+  
+  for filename in files_to_download:
+    local_path = os.path.join(PIPELINE_DIR, filename)
+    
+    if not os.path.exists(local_path):
+      
+      # in Local files are not available, Download it
+      print(f"Downloading {filename} from HuggingFace...")
+      downloaded_path = hf_hub_download(
+        repo_id = HF_REPO_ID,
+        filename = filename,
+        local_dir = PIPELINE_DIR
+      )
+      print(f"✅ {filename} Downloded!")
+    else:
+      print(f"✅ {filename} already exists locally - skipping download")
+
+# run on Startup
+print("\nServer starting...")
+download_pipeline_if_needed()
 
 print("\nLoading pipeline...")
 pipeline = FraudDetectionPipeline.load(PIPELINE_DIR)
