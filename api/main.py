@@ -343,7 +343,7 @@ def predict_fraud(transaction: TransactionInput):
 
   try:
     # convert into python dict for pydantic model
-    transaction_dict = transaction.dict()
+    transaction_dict = transaction.model_dump()
 
     # pipeline prediction
     result = pipeline.predict(transaction_dict)
@@ -376,7 +376,7 @@ def predict_batch(batch: BatchInput):
 
   try:
     # convert all transactions into list of dicts
-    transactions_list = [t.dict() for t in batch.transactions]
+    transactions_list = [t.model_dump() for t in batch.transactions]
 
     # create DataFrame
     transactions_df = pd.DataFrame(transactions_list)
