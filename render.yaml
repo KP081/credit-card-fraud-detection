@@ -7,5 +7,4 @@ services:
     envVars:
       - key: HF_REPO_ID
         value: KP022/fraud-detection-model
-      - key: PYTHON_VERSION
-        value: 3.11.0
+        
