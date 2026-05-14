@@ -79,7 +79,7 @@
 ```bash
 curl -X POST "https://fraud-detection-api-7fap.onrender.com/predict" \
      -H "Content-Type: application/json" \
-     -d '{ "Time": 0.01
+     -d '{ "Time": 0.01,
        "V1": -1.3598, "V2": -0.0728, "V3": 2.5363,
        "V4": 1.3782,  "V5": -0.3383, "V6": 0.4624,
        "V7": 0.2396,  "V8": 0.0987,  "V9": 0.3638,
@@ -148,27 +148,41 @@ fraud_detection_api/
 
 ## 🚀 Local Setup
 
+### 1. Clone the repository
 ```bash
-# 1. Clone the repository
 git clone https://github.com/KP081/credit-card-fraud-detection.git
-cd credit-card-fraud-detection
-
-# 2. Create virtual environment
-python3 -m venv venv
-source venv/bin/activate
-
-# 3. Install dependencies
-pip install -r requirements.txt
-pip install -r requirements_main.txt
-
-# 4. Run FastAPI (Terminal 1)
-uvicorn api.main:app --reload --port 8000
-# → http://localhost:8000/docs
-
-# 5. Run Streamlit (Terminal 2)
-streamlit run app/app.py --server.port 8501
-# → http://localhost:8501
 ```
+```bash
+cd credit-card-fraud-detection
+```
+
+### 2. Create virtual environment
+```bash
+python3 -m venv venv
+```
+```bash
+source venv/bin/activate
+```
+
+### 3. Install dependencies
+```bash
+pip install -r requirements.txt
+```
+```bash
+pip install -r requirements_main.txt
+```
+
+### 4. Run FastAPI (Terminal 1)
+```bash
+uvicorn api.main:app --reload --port 8000
+```
+-> http://localhost:8000/docs
+
+### 5. Run Streamlit (Terminal 2)
+```bash
+streamlit run app/app.py --server.port 8501
+```
+-> http://localhost:8501
 
 > **Note:** Model files are automatically downloaded from Hugging Face Hub on first startup.
 
@@ -206,9 +220,3 @@ streamlit run app/app.py --server.port 8501
 **Kathan Patel**
 
 [![GitHub](https://img.shields.io/badge/GitHub-KP081-181717?style=for-the-badge&logo=github)](https://github.com/KP081)
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License - feel free to use it for learning and portfolio purposes.
