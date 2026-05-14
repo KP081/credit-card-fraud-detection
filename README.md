@@ -17,7 +17,7 @@
 | 🎨 **Web App** | [credit-card-fraud-detection.streamlit.app](https://credit-card-fraud-detection-wfoc7ccnzscsx2ayxmc9rj.streamlit.app/) | ![Live](https://img.shields.io/badge/status-live-brightgreen) |
 | ⚡ **API Docs** | [fraud-detection-api.onrender.com/docs](https://fraud-detection-api-7fap.onrender.com/docs) | ![Live](https://img.shields.io/badge/status-live-brightgreen) |
 
-> ⚠️ API is hosted on Render free tier — first request may take 30-50 seconds to wake up.
+> ⚠️ API is hosted on Render free tier - first request may take 30-50 seconds to wake up.
 
 ---
 
