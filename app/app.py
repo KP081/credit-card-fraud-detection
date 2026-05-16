@@ -22,7 +22,7 @@ np.random.seed(RANDOM_STATE)
 #   |   |   |   |   Confifuration
 ###########################################################
 
-DEFAULT_API_URL = os.getenv("API_URL", "http://localhost:8000")
+DEFAULT_API_URL = os.getenv("API_URL", "https://fraud-detection-api-7fap.onrender.com")
 
 st.set_page_config(
     page_title = "Fraud Detection System",
