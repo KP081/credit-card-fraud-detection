@@ -1,0 +1,34 @@
+# Definr Stage Image
+FROM python:3.10-slim
+
+# Set Working Directory
+WORKDIR /app
+
+# System Dependencies
+RUN apt-get update && apt-get install -y \ 
+    build-essential \ 
+    && rm -rf /var/lib/apt/lists/*
+
+# Requirements Copy + Install
+COPY requirements_main.txt .
+
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements_main.txt
+
+# Application Code Copy
+COPY api/ ./api/
+COPY pipeline/ ./pipeline/
+
+# Environment Variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Port Expose
+EXPOSE 8000
+
+# Health Check
+HEALTHCHECK --interval=30s --timeout=20s --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+
+# Start Command
+CMD [ "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000" ]

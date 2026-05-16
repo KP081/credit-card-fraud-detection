@@ -1,0 +1,84 @@
+version: "3.9"
+
+services:
+
+    #########################################
+    #   |   |   Service 1: FastAP
+    #########################################
+
+    api:
+      image: fraud_detection-api
+
+      build:
+        context: .
+        dockerfile: Dockerfile.api
+      
+      container_name: fraud_detection_api
+
+      ports: 
+        - "8000:8000"
+
+      environment:
+        - HF_REPO_ID=KP022/fraud-detection-model
+        - ENVIRONMENT=development
+
+      env_file:
+        - .env
+
+      volumes:
+        - ./pipeline:/app/pipeline
+
+      healthcheck:
+        test: ["CMD", "python", "-c", 
+                "import requests; requests.get('http://localhost:8000/health')"]
+        interval: 30s
+        timeout: 20s
+        retries: 3
+        start_period: 60s
+
+      restart: unless-stopped
+
+      networks:
+        - fraud_network
+
+
+    #########################################
+    #   |   |   Service 2: Streamlit
+    #########################################
+
+    streamlit:
+      image: fraud_detection-streamlit
+
+      build:
+        context: .
+        dockerfile: Dockerfile.app
+
+      container_name: fraud_detection_streamlit
+
+      ports:
+        - "8501:8501"
+
+      # IMPORTANT
+      # In a Docker network:
+      #   Container -> localhost = only its own container
+      #   Container -> "api" = another container (service name)
+      environment:
+        - API_URL=http://api:8000
+
+      depends_on:
+        api:
+          condition: service_healthy
+
+      restart: unless-stopped
+
+      networks:
+        - fraud_network
+
+      
+#########################################
+#   |   |   Networks
+#########################################
+
+networks:
+  fraud_network:
+    driver: bridge

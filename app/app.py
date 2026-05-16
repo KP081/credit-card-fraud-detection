@@ -11,6 +11,7 @@ import plotly.graph_objects as go
 from datetime import datetime
 import json
 import io
+import os
 
 # Random seed
 RANDOM_STATE = 42
@@ -21,7 +22,7 @@ np.random.seed(RANDOM_STATE)
 #   |   |   |   |   Confifuration
 ###########################################################
 
-DEFAULT_API_URL = "https://fraud-detection-api-7fap.onrender.com"
+DEFAULT_API_URL = os.getenv("API_URL", "http://localhost:8000")
 
 st.set_page_config(
     page_title = "Fraud Detection System",
